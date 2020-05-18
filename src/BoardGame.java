@@ -26,9 +26,7 @@ public class BoardGame {
         }
     }
 
-    public char[][] getBoardcontent() {
-        return boardcontent;
-    }
+
     public void play (boolean isBlack){
         if(isBlack){
             System.out.println("请走黑棋的玩家输入位置的行和列(空格隔开):");
@@ -52,7 +50,7 @@ public class BoardGame {
     public int recursionFindSame(int dirX,int dirY,char player){
         line = line+dirX;
         row = row+dirY;
-        if(line<=16 && row<=16){
+        if(line<=16 && row<=16 ){
             if(boardcontent[line][row]==player){
                 tempt++;
                 return recursionFindSame(dirX,dirY,player);
