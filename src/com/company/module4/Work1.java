@@ -1,22 +1,45 @@
-package com.company.module3;
+package com.company.module4;
 
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
 
-public class WORK4 {
+public class Work1 {
+
     public static void main(String[] args) {
         int studentid = 0;
         int age =0;
+        boolean flag = true;
         String name = null;
         Students sd1 = new Students();
         Scanner sc1 = new Scanner(System.in);
         int select;
         Collection<Students> c1 = new ArrayList<>();
+        ObjectInputStream oi = null;
+        ObjectOutputStream oos = null;
+        try {
+            oi = new ObjectInputStream(new FileInputStream("/Users/lilinrong/Desktop/a.txt"));
+            c1 = (Collection<Students>) oi.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }finally {
+            if(null!=oi){
+                try {
+                    oi.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-        while(true){
+        while(flag){
+
             System.out.println("请选择功能 输入对应数字");
-            System.out.println("1-增加信息 2-删除信息 3-修改信息 4-查找 5-遍历 其他数字退出");
+            System.out.println("1-增加信息 2-删除信息 3-修改信息 4-查找 5-遍历 6-退出 ");
             select = sc1.nextInt();
             switch (select){
                 case 1:
@@ -67,6 +90,24 @@ public class WORK4 {
                 case 5:
                     System.out.println("学生信息库："+c1);
                     break;
+                case 6:
+                    flag = false;
+                    try {
+                        oos = new ObjectOutputStream(new FileOutputStream("/Users/lilinrong/Desktop/a.txt",true));
+                        oos.writeObject(c1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }finally {
+                        if(null!=oos){
+                            try {
+                                oos.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    break;
+
                 default:
                     System.out.println("输入错误");
                     break;

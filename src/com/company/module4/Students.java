@@ -1,16 +1,20 @@
-package com.company.module3;
+package com.company.module4;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Students {
+
+
+public class Students implements Serializable{
+    private static final long serialVersionUID = 2078028762783447921L;
     private int id;
     private String name;
     private int age;
 
     public Students(int id, String name, int age) {
-        this.id = id;
+        setId(id);
         this.name = name;
-        this.age = age;
+        setAge(age);
     }
 
     public Students() {
@@ -43,7 +47,16 @@ public class Students {
     }
 
     public void setId(int id) {
-        this.id = id;
+        if(id>0){
+            this.id = id;
+        }else{
+            try {
+                throw new AgeException("学号不能为负！");
+            } catch (AgeException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public String getName() {
@@ -59,7 +72,17 @@ public class Students {
     }
 
     public void setAge(int age) {
-        this.age = age;
+        if(age>0 && age<150){
+            this.age = age;
+
+        }else{
+            try {
+                throw new AgeException("年龄不合理！");
+            } catch (AgeException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 }
